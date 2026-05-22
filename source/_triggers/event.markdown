@@ -49,7 +49,7 @@ This runs when the `shopping_list_updated` event is fired.
 
 ### Options in YAML
 
-YAML supports matching event data, full event context, and multiple event types.
+YAML supports matching event data, full event context, multiple event types, and limited templates.
 
 {% options_yaml %}
 trigger:
@@ -73,8 +73,10 @@ context:
 ## Good to know
 
 - This trigger listens for events on the Home Assistant event bus. It does not watch an entity state.
+- In YAML, you can use one event type or a list of event types.
 - In the UI, you can limit the trigger by user. In YAML, you can also match other context fields.
 - Home Assistant does not allow the `state_reported` event with this trigger.
+- Limited templates in `event_type`, `event_data`, and `context` are evaluated only when the trigger is set up.
 
 {% include triggers/try_it.md %}
 

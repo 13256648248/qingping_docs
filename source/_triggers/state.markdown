@@ -63,19 +63,19 @@ entity_id:
   required: true
   type: string
 from:
-  description: Optional starting state to match.
+  description: Optional starting state to match. You can use one state or a list of states.
   required: false
   type: string
 to:
-  description: Optional new state to match.
+  description: Optional new state to match. You can use one state or a list of states.
   required: false
   type: string
 not_from:
-  description: Optional starting state to exclude. YAML only.
+  description: Optional starting state to exclude. You can use one state or a list of states. YAML only.
   required: false
   type: string
 not_to:
-  description: Optional new state to exclude. YAML only.
+  description: Optional new state to exclude. You can use one state or a list of states. YAML only.
   required: false
   type: string
 attribute:
@@ -88,6 +88,10 @@ for:
   type: string
 {% endoptions_yaml %}
 
+If you want to trigger on all state changes but ignore attribute-only changes, set one of `from`, `to`, `not_from`, or `not_to` to an empty value in YAML.
+
+In YAML, `from`, `to`, `not_from`, and `not_to` each accept either one state or a list of states.
+
 ## Targets of the trigger
 
 This trigger watches one or more entities selected by `entity_id`.
@@ -99,6 +103,7 @@ This trigger watches one or more entities selected by `entity_id`.
 
 - If you do not set **From** or **To**, this trigger fires on all state changes. It also fires when only an attribute changes.
 - If you set **From**, **To**, `not_from`, or `not_to`, attribute-only changes do not fire the trigger.
+- You cannot combine `from` with `not_from`, or `to` with `not_to`.
 - If you use `for`, the timer resets if Home Assistant restarts or automations reload.
 
 {% include triggers/try_it.md %}

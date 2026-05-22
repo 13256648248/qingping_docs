@@ -84,6 +84,10 @@ for:
   type: string
 {% endoptions_yaml %}
 
+When you use `attribute`, Home Assistant evaluates that attribute instead of the main entity state.
+
+When you use `value_template`, the `state` variable is the [state object](/docs/configuration/state_object) for the entity you selected with `entity_id`.
+
 ## Targets of the trigger
 
 This trigger watches one or more entities selected by `entity_id`. Each selected entity must provide a numeric state, or a numeric value in the attribute you choose.
@@ -95,6 +99,7 @@ This trigger watches one or more entities selected by `entity_id`. Each selected
 
 - This trigger fires when a value crosses a threshold. It does not keep firing while the value stays on the same side of the threshold.
 - If you set both **Above** and **Below**, the trigger fires when the value enters that range.
+- If you use another entity in `above` or `below`, Home Assistant compares against that entity only when the watched entity updates.
 - If you use `for`, the timer resets if Home Assistant restarts or automations reload.
 
 {% include triggers/try_it.md %}

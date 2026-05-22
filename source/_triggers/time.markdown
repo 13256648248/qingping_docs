@@ -52,7 +52,7 @@ trigger:
   required: true
   type: string
 at:
-  description: The time to trigger at. You can use a time string, an `input_datetime` entity, a timestamp or uptime sensor, a mapping with `entity_id` and `offset`, a limited template, or a list.
+  description: The time to trigger at. You can use a time string, an `input_datetime` entity, a timestamp sensor, a mapping with `entity_id` and `offset`, a limited template, or a list.
   required: true
   type: string
 weekday:
@@ -61,11 +61,22 @@ weekday:
   type: string
 {% endoptions_yaml %}
 
+In YAML, `at` supports a fixed time string, an [`input_datetime`](/integrations/input_datetime/), a timestamp sensor, a mapping with `entity_id` and `offset`, a limited template, or a list that mixes those formats.
+
+When you use an [`input_datetime`](/integrations/input_datetime/), the trigger behavior depends on how that helper is configured:
+
+- A time-only helper fires every day at that time.
+- A date-only helper fires once at midnight on that date.
+- A helper with both date and time fires once at that date and time.
+
+The `weekday` option accepts one weekday such as `mon` or a list of weekdays.
+
 ## Good to know
 
 - You can use a fixed time, a date/time helper, or a timestamp-style sensor.
 - If the source entity is `unknown` or `unavailable`, the trigger waits until it has a valid value again.
 - YAML also supports multiple `at` values in one trigger.
+- With entity-based times, a positive offset may never fire if the source entity updates before the offset is reached.
 
 {% include triggers/try_it.md %}
 
